@@ -8,18 +8,50 @@
   </head>
   <body class="mixpanel-platform-body">
     <!--Add Report URL to let us commit to Github -->
-    <!--Add  -->
+    <!-- First View: Plus sign to add a  -->
     <script>
-      
-      
-      
-      console.log(document.url);
-      console.log(window.location);
-      console.log(window.navigator);
-    </script>
-    
-    <script>
-      
+        $(document).ready(function(){
+            /* Load Config */
+            var html = document.documentElement.outerHTML;
+            var configData = checkConfig(html);
+
+        });
+
+        function checkConfig(data){
+            /* Find Config Script Tag */
+            var dummyElement = document.createElement('html')
+            var newUser = false;
+            var configScript;
+            dummyElement.innerHtml = data;
+
+            /* If there's no existing config, create one for this user */
+            var config = dummyElement.getElementsByClassName('config');
+            if (config.length == 0) {
+                newUser = true;
+                configScript = '<script class="config">{"newUser":true, "report_url":""}</script>'
+                // commitScript(configScript, dummyElement);
+                return configScript;
+            } else {
+                var c = config[0];
+                var text = c.outerText;
+                return text;
+            }
+        }
+
+        function commitScript(script){
+
+            $.ajax({
+                url: '/report/4/mpplatform/api/39623',
+                data: JSON.stringify(data),
+                type: 'PUT',
+                success: function(result) {
+                    console.log(result);
+                }
+            });
+        }
+        console.log(document.url);
+        console.log(window.location);
+        console.log(window.navigator);
     </script>
   </body>
 </html>
