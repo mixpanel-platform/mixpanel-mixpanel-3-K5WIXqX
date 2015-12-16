@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
+    <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://d621cde4587c562960fbe230744f42dc2304ca4f.googledrive.com/host/0BxwayM8qQaCVX0w4RExCOVdhbzQ">
+    <link rel="stylesheet" type="text/css" href="https://a7fd22d7f1e3c3ec503950ff3eb0ca354866665d.googledrive.com/host/0BxwayM8qQaCVMk14UTA0V2JuSVU">
+    <link rel="stylesheet" type="text/css" href="https://5a4961e5c9f1459a1c463234568af125d8e1b386.googledrive.com/host/0BxwayM8qQaCVRmRCSDlXUUtMMnc/">
+    <link rel="stylesheet" type="text/css" href="https://201420392a7158f07d53a8f3e71606645ab03bd2.googledrive.com/host/0BxwayM8qQaCVQldvY2U5Um9FN3M">
+
+
+  </head>
+  <style type="text/css">
+  .graph {
+    width:100%; 
+    height:800px;
+    padding: 10px; 
+    margin: auto;
+    border: 3px solid #9933ff;
+    border-radius: 25px;
+  }
+  .plus {
+    width: 20%;
+    height: 50%;
+    margin: auto;
+}
+
+#overlay {
+  background:rgba(0,0,0,0.7);
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
+  display:none;
+  text-align:center;
+}
+
+  </style>
+  
+  <body class="mixpanel-platform-body">
+    <!--Add Report URL to let us commit to Github -->
+    <!-- First View: Plus sign to add a  -->
+    <script>
+        $(document).ready(function(){
+            /* Load Config */
+            var html = document.documentElement.outerHTML;
+            var configData = checkConfig(html);
+
+        });
+
+        function checkConfig(data){
+            /* Find Config Script Tag */
+            var dummyElement = document.createElement('html')
+            var newUser = false;
+            var configScript;
+            dummyElement.innerHtml = data;
+
+            /* If there's no existing config, create one for this user */
+            var config = dummyElement.getElementsByClassName('config');
+            if (config.length == 0) {
+                newUser = true;
+                configScript = '<script class="config">{"newUser":true, "report_url":""}</script>'
+                // commitScript(configScript, dummyElement);
+                return configScript;
+            } else {
+                var c = config[0];
+                var text = c.outerText;
+                return text;
+            }
+        }
+
+        function commitScript(script){
+
+            $.ajax({
+                url: '/report/4/mpplatform/api/39623',
+                data: JSON.stringify(data),
+                type: 'PUT',
+                success: function(result) {
+                    console.log(result);
+                }
+            });
+        }
+        console.log(document.url);
+        console.log(window.location);
+        console.log(window.navigator);
+    </script>
+    <!-- START Dashboard Bar-->
+    <div class="content-heading text-center">
+      <div class="pull-right" style="bottom: 10px;">
+          <!-- <img src="https://d018d7277c9a2a72c253b637c4abe4d24d29449c.googledrive.com/host/0BxwayM8qQaCVOGZvekkxYTNSZVU" height="40px" width="120px"> -->
+      </div>
+      <div class="pull-left">
+         <!--  <img src="https://904d537b177e27fb469b44e90a0d758dec0d3d71.googledrive.com/host/0BxwayM8qQaCVUTRRRC15OXpvVkk" height="30px" width="124px"> -->
+      </div>User Dashboard</div>
+    </div>
+    <!-- END Dashbar bar  -->
+    <span class="row">
+       <!-- START widget 1 -->
+       <div class="col-lg-3 col-sm-3">
+          <div class="panel widget bg-primary">
+             <div class="row row-table">
+                <div class="col-xs-4 text-center bg-primary-dark pv-lg">
+                   <em class="icon-speedometer fa-3x"></em>
+                </div>
+                <div class="col-xs-8 pv-lg">
+                   <div class="h2 mt0 current-users text-center">0</div>
+                   <div class="text-uppercase text-center">Current Users</div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <!-- end widget 1 -->
+       <!-- START widget 2 -->
+       <div class="col-lg-3 col-sm-3">
+          <div class="panel widget bg-purple">
+             <div class="row row-table">
+                <div class="col-xs-4 text-center bg-purple-dark pv-lg">
+                   <em class="icon-users fa-3x"></em>
+                </div>
+                <div class="col-xs-8 pv-lg">
+                   <div class="h2 mt0 monthly-actives text-center">0</div>
+                   <div class="text-uppercase text-center">MAU'S</div>
+                </div>
+             </div>
+          </div>
+       </div>
+       <!-- end widget 2 -->
+       <!-- START widget 3 -->
+       <div class="col-lg-3 col-md-6 col-sm-3">
+          <div class="panel widget bg-green">
+            <div class="row row-table">
+              <div class="col-xs-4 text-center bg-green-dark pv-lg">
+                 <em class="icon-energy fa-3x"></em>
+              </div>
+              <div class="col-xs-8 pv-lg">
+                   <div class="h2 mt0 daily-actives text-center">0</div>
+                   <div class="text-uppercase text-center">DAU'S</div>
+              </div>
+            </div>
+          </div>
+       </div>
+       <!-- end widget 3 -->
+      <!-- START date widget-->
+      <div class="col-lg-3 col-md-6 col-sm-3">
+          <div class="panel widget">
+             <div class="row row-table">
+                <div class="col-xs-4 text-center bg-green pv-lg">
+                   <!-- See formats: https://docs.angularjs.org/api/ng/filter/date-->
+                   <div data-now="" data-format="MMMM" class="text-sm date-month text-center"></div>
+                   <br>
+                   <div data-now="" data-format="D" class="h2 mt0 date-day text-center"></div>
+                </div>
+                <div class="col-xs-8 pv-lg">
+                   <div data-now="" data-format="dddd" class="text-uppercase date-actual-day text-center"></div>
+                   <br>
+                   <div data-now="" data-format="h:mm" class="h2 mt0 date-time"></div>
+                   <div data-now="" data-format="a" class="text-muted text-sm date-pm"></div>
+                </div>
+             </div>
+          </div>
+      </div>
+      <!-- END date widget    -->
+    </span>
+
+
+
+
+    <div class="containerGraph" style="text-align:center">
+        <div class ="graph" id="graph1"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus1"></div><br>
+        <div class ="graph" id="graph2"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus2"></div><br>
+        <div class ="graph" id="graph3"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus3"></div><br>
+        <div class ="graph" id="graph4"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus4"></div><br>
+        <div class ="graph" id="graph5"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus5"></div><br>
+        <div class ="graph" id="graph6"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus6"></div><br>
+        <div class ="graph" id="graph7"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus7"></div><br>
+        <div class ="graph" id="graph8"><img src="http://flashgames.es/img/logo.png" class='plus' id="plus8"></div><br>
+      </div>
+    </div>
+    <script type="text/javascript">
+     var $test = $('<img src="https://s-media-cache-ak0.pinimg.com/736x/48/0f/f4/480ff45c5d3e9654c2d09a79400552a3.jpg" style="height:90%; width:100%;"></div>');
+     var $removeButton = $('<button style="float:right;">Remove</button>');
+    // enable the plus button to be clickable 
+        $(".plus").click(function(event){
+            
+            //create a variable to store what div's plus sign was clicked
+            var a = $(this).attr('id')
+            //made it usable by jQuery
+            var graphDivClicked = "#" + a;
+            console.log(" This is the img id value : " + graphDivClicked)
+            var x = $(this).closest('div').attr('id');
+            // make it a class variable for jquery
+            var divIdValue = "#" + x;
+            console.log(" This is the parent div id value : " + divIdValue);
+            
+            //append the graph to the div element, at the moment using a image tag to test
+            $(divIdValue).append($test)
+            //get the parent div's id
+            
+            //add a remove button
+            $(this).before($removeButton)
+            //remove plus image for just the specifc div that was clicked
+            $(graphDivClicked).remove()
+
+            console.log("all plus button functionallity is working")
+
+        });
+
+    </script>
+
+
+  </body>
+</html>
